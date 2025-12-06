@@ -1,0 +1,27 @@
+This repository provides two Python scripts to convert an image into
+an audio file whose spectrogram resembles the image, and to visualize that
+WAV as a spectrogram using matplotlib.
+
+**Usage example (PowerShell / Windows)**
+
+- **Generate WAV from an image**: run `spectrogram.py` with the image filename. The script will write a WAV file named `<image_filename>.wav`.
+
+```powershell
+python spectrogram.py 20240518_144947.png
+# -> writes 20240518_144947.png.wav
+```
+
+- **Visualize the generated WAV**: use `visualize.py` to save a spectrogram PNG (recommended for headless systems):
+
+```powershell
+python visualize.py "20240518_144947.png.wav" -o "spectrogram.png"
+```
+
+Notes:
+- `visualize.py` sets the matplotlib backend to `Agg` by default so it will save files reliably in headless environments.
+- If `python` is not on your PATH (PowerShell reported "Python was not found"), try the Windows launcher `py`:
+
+```powershell
+py spectrogram.py 20240518_144947.png
+py visualize.py "20240518_144947.png.wav" -o "spectrogram.png"
+```
