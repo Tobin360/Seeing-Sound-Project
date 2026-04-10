@@ -14,7 +14,7 @@ def make_wav(image_filename):
     image = image.T
     # flip the frequency axis (y-axis of the spectrogram) so the generated
     # spectrogram keeps the same vertical orientation as the input image
-    image = np.flip(image, axis=0)
+    image = np.flip(image, axis=1)
     image = image**3 
     w, h = image.shape
 
