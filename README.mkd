@@ -1,20 +1,38 @@
-This repository provides two Python scripts to convert an image into
-an audio file whose spectrogram resembles the image, and to visualize that
-WAV as a spectrogram using matplotlib.
+# Seeing Sound
 
-**Usage example (PowerShell / Windows)**
+## Overview
+
+This repository provides three Python scripts. `spectrogram.py`, to convert an image into
+an audio file whose spectrogram resembles the image, `spectrogram_watermark.py` to take an input image and audio file and compose a combined audio file whos spectrogram both resembles the image and sounds like the original audio, and `visualize.py` to visualize that WAV as a spectrogram using matplotlib.
+
+## Usage example (PowerShell / Windows)
 
 - **Generate WAV from an image**: run `spectrogram.py` with the image filename. The script will write a WAV file named `<image_filename>.wav`.
 
 ```powershell
-python spectrogram.py 20240518_144947.png
-# -> writes 20240518_144947.png.wav
+python spectrogram.py Cat.png
+# -> writes Cat.png.wav
+```
+
+- **Compose Spectrogram from image and Audio**: run `pectrogram_watermark.py` with the image filename. The script will write a WAV file with a given name.
+
+```powershell
+python spectrogram_watermark.py watermark `
+>>   --audio Meow_long.wav --image Cat.jpg --output Cat_watermarked.wav `
+>>   --mode blend --mix 0.90 --depth_db 45 `
+>>   --mask luma --nfft 1024 --hop 128 --fmin 0 --fmax 20000 `
+>>   --flip_freq --flip_time
+```
+To show the composed the spectrogram, use `visualize.py`
+
+```powershell
+python visualize.py Cat_watermarked.wav -o Cat_watermarked.png --nfft 2048 --noverlap 1920
 ```
 
 - **Visualize the generated WAV**: use `visualize.py` to save a spectrogram PNG (recommended for headless systems):
 
 ```powershell
-python visualize.py "20240518_144947.png.wav" -o "spectrogram.png"
+python visualize.py "Cat.wav" -o "Cat_spectrogram.png"
 ```
 
 Notes:
@@ -22,6 +40,14 @@ Notes:
 - If `python` is not on your PATH (PowerShell reported "Python was not found"), try the Windows launcher `py`:
 
 ```powershell
-py spectrogram.py 20240518_144947.png
-py visualize.py "20240518_144947.png.wav" -o "spectrogram.png"
+py spectrogram.py Cat.png
+py visualize.py "Cat.wav" -o "Cat_spectrogram.png"
 ```
+
+## Example Output
+
+<div align="center">
+  <img src="Cat.jpg" width="48%">
+  <img src="Cat_spectrogram.png" width="48%">
+  <img src="Cat_watermarked.png" width="48%">
+</div>
