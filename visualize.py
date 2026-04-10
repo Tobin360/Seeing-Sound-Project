@@ -48,7 +48,10 @@ def plot_spectrogram(rate, data, outfile=None, cmap='viridis', nfft=2048, noverl
         noverlap = nfft // 2
 
     # matplotlib.pyplot.specgram returns (spectrum, freqs, bins, im)
-    Pxx, freqs, bins, im = plt.specgram(data, NFFT=nfft, Fs=rate, noverlap=noverlap, cmap=cmap)
+    Pxx, freqs, bins, im = plt.specgram(
+        data, NFFT=nfft, Fs=rate, noverlap=noverlap, cmap=cmap, scale='dB'
+    )
+    im.set_clim(-120, -20)  # optional: sets a consistent visible dB range
 
     plt.xlabel('Time (s)')
     plt.ylabel('Frequency (Hz)')
